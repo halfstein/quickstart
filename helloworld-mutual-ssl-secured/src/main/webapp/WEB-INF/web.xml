@@ -31,8 +31,8 @@
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>CLIENT-CERT</auth-method>
-        <realm-name>client_cert_domain</realm-name>
+        <auth-method>BEARER_TOKEN</auth-method>
+        <realm-name>qs_domain</realm-name>
     </login-config>
     <security-role>
         <description/>

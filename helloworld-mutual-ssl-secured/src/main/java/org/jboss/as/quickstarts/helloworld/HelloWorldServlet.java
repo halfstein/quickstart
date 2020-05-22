@@ -59,7 +59,7 @@ public class HelloWorldServlet extends HttpServlet {
         writer.println(PAGE_HEADER);
         writer.println("<h2>" + helloService.createHelloMessage("World ") + "</h2>");
         writer.println("<h4> Caller Principal: " + req.getUserPrincipal() + "</h4>");
-        writer.println("<h4> Client Certificate Pem: " + getPemFromCertificate(extractCertificate(req)) + "</h4>");
+//        writer.println("<h4> Client Certificate Pem: " + getPemFromCertificate(extractCertificate(req)) + "</h4>");
         writer.println(PAGE_FOOTER);
         writer.close();
     }
