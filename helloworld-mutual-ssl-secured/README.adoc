@@ -1,18 +1,19 @@
 include::../shared-doc/attributes.adoc[]
 
-= helloworld-mutual-ssl-secured: Securing a Web Application with Mutual (two-way) SSL Configuration and Role-based Access Control
-:author: Giriraj Sharma, Stefan Guilhen
-:level: Intermediate
-:technologies: Mutual SSL, Security, Undertow
+= helloworld-mutual-ssl-secured: Modified to use JWT
 
 [abstract]
-The `helloworld-mutual-ssl-secured` quickstart demonstrates securing a Web application using client mutual SSL authentication and role-based access control
+This quickstart is modified from X509 to JWT authentication and now fails with:
+.ELY01033: User does not exist
 
-:standalone-server-type: default
-:archiveType: war
-:includes-cli-scripts:
-:restoreScriptName: restore-configuration.cli
-:app-user-groups: JBossAdmin
+First I followed the directions below and verified expected results. 
+
+To change to JWT I edited the standalone.xml to replace the KeyStoreRealm with a JwtRealm and change to BEARER_TOKEN. I created the JsonWebTokenHandler, added it to the web configuration, and changed to BEARER_TOKEN. Lastly I commented out the printing of the Client Certificate in the HelloWorldServlet.
+
+You should be able to skip the setup below and just setup your Wildfly 14 server with:
+----
+$cp standalone_configuration/* {jbossHomeName}/standalone/configuration/ 
+----
 
 == What is it?
 
