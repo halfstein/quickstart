@@ -5,9 +5,10 @@ include::../shared-doc/attributes.adoc[]
 [abstract]
 This quickstart is modified such that the aggregate realm now uses JWT for authentication vs. the original X509.
 
-Authentication and now fails with:
-
-.ELY01033: User does not exist
+Authentication now fails with: 
+----
+ELY01033: User does not exist
+----
 
 First I followed the directions below and verified expected results. 
 
