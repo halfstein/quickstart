@@ -14,12 +14,38 @@ First I followed the directions below and verified expected results.
 
 To change to JWT I edited the standalone.xml to replace the KeyStoreRealm with a JwtRealm and change to BEARER_TOKEN. I created the JsonWebTokenHandler, added it to the web configuration, and changed to BEARER_TOKEN. Lastly I commented out the printing of the Client Certificate in the HelloWorldServlet.
 
+This verified solution on RedHat says that this should work https://access.redhat.com/solutions/3640011
+
 You should be able to skip the setup below and just setup your Wildfly 14 server with:
 ----
 $cp standalone_configuration/* {jbossHomeName}/standalone/configuration/ 
 ----
 
-NOTE This verified solution on RedHat says that this should work https://access.redhat.com/solutions/3640011
+When you access the URL: https://localhost:8443/helloworld-mutual-ssl-secured
+
+You should get an Internal Server Error. I turned up logging so you will see in the server console.
+----
+17:01:41,732 TRACE [org.wildfly.security] (default task-1) BEARER_TOKEN: org.wildfly.security.http.HttpAuthenticationException: ELY05053: Callback handler failed for unknown reason
+	at org.wildfly.security.mechanism._private.MechanismUtil.handleCallbacks(MechanismUtil.java:161)
+.
+.
+.
+Caused by: java.lang.IllegalStateException: ELY01033: User does not exist
+	at org.wildfly.security.auth.server.RealmIdentity.getAuthorizationIdentity(RealmIdentity.java:257)
+	at org.wildfly.security.auth.realm.AggregateSecurityRealm$Identity.getAuthorizationIdentity(AggregateSecurityRealm.java:163)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext$NameAssignedState.doAuthorization(ServerAuthenticationContext.java:1923)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext$NameAssignedState.authorize(ServerAuthenticationContext.java:1904)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext.authorize(ServerAuthenticationContext.java:473)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext.authorize(ServerAuthenticationContext.java:469)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext$1.handleOne(ServerAuthenticationContext.java:872)
+	at org.wildfly.security.auth.server.ServerAuthenticationContext$1.handle(ServerAuthenticationContext.java:839)
+	at org.wildfly.security.http.util.SecurityIdentityServerMechanismFactory$SecurityIdentityCallbackHandler.handle(SecurityIdentityServerMechanismFactory.java:120)
+	at org.wildfly.security.mechanism._private.MechanismUtil.handleCallbacks(MechanismUtil.java:157)
+	... 42 more
+
+17:01:41,739 TRACE [org.wildfly.security.http] (default task-1) Authentication failed.: org.wildfly.security.http.HttpAuthenticationException: ELY06016: HTTP authentication failed validating request, no mechanisms remain to continue authentication.
+	at org.wildfly.security.http.HttpAuthenticator$AuthenticationExchange.authenticate(HttpAuthenticator.java:285)
+----
 
 == What is it?
 
