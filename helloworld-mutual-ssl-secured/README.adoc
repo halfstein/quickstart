@@ -19,6 +19,8 @@ You should be able to skip the setup below and just setup your Wildfly 14 server
 $cp standalone_configuration/* {jbossHomeName}/standalone/configuration/ 
 ----
 
+NOTE This verified solution on RedHat says that this should work https://access.redhat.com/solutions/3640011
+
 == What is it?
 
 This example demonstrates the configuration of _mutual SSL authentication_ in {productNameFull} {productVersion} to secure a war application.
